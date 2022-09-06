@@ -31,22 +31,22 @@ function showRgb(input) {
     const rgbCleaned = input.replace("#", "");
     let hexString = rgbCleaned.match(/.{1,2}/g);  
 
-    let rgbString = [
-        parseInt(hexString[0], 16),
-        parseInt(hexString[1], 16),
-        parseInt(hexString[2], 16)
-    ];
+    
+    const r = parseInt(hexString[0], 16)
+    const g = parseInt(hexString[1], 16)
+    const b = parseInt(hexString[2], 16)
+    
 
-    rgb.textContent = `RGB: ${rgbString}`;
+    rgb.textContent = `RGB: ${r}, ${g}, ${b}`;
 
-    showHsl(rgbString);
+    showHsl(r, g, b);
 }
 
-function showHsl(rgb) {
+function showHsl(red, green, blue) {
     let hsl = document.querySelector(".hsl");
-    const r = rgb[0];
-    const g = rgb[1];
-    const b = rgb[2];
+    const r = red/255;
+    const g = green/255;
+    const b = blue/255;
   
     let h, s, l;
   
@@ -80,7 +80,6 @@ function showHsl(rgb) {
     l *= 100;
     
     hsl.textContent = `HSL: ${h.toFixed(0)}, ${s.toFixed(0)}%, ${l.toFixed(0)}%`;
-    console.log("hsl(%f,%f%,%f%)", h, s, l); // just for testing
   
     
 }

@@ -19,18 +19,23 @@
 
     .select {
         color:white;
-        margin: 0;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        font-family: arial;
+
     }
 
     .farvedisplay {
         margin-top: 1%;
+        margin-bottom: 2%;
         width: 150px;
         height: 150px;
         border-radius: 8%;
 }
 
 .rgb, .hsl, .hex {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    font-family: arial;
     margin: 0.5%;
     color: white;
 }
@@ -39,9 +44,9 @@
     <section id="container">
     <p class="select">Select color:</p><input type="color"></input>
     <div class="farvedisplay"></div>
-    <p class="hex"></p>
-    <p class="rgb"></p>
-    <p class="hsl"></p>
+    <p class="hex">HEX: 0</p>
+    <p class="rgb">RGB: 0</p>
+    <p class="hsl">HSL: 0</p>
 </section>
 <script src="index.js"></script>
 </body>
