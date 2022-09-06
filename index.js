@@ -11,5 +11,13 @@ function init() {
 
 function updateColor(event) {
     colordisplay.style.background = input.value;
-    console.log(colordisplay.style.background);
+    // console.log(colordisplay.style.background);
+
+    showHex(input.value);
+}
+
+function showHex(input) {
+    console.log(input);
+    let hex = document.querySelector(".hex");
+    hex.textContent = `HEX: ${input}`;
 }
