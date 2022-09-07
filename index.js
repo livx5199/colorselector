@@ -1,49 +1,55 @@
 "use strict";
+
 let colordisplay = document.querySelector(".farvedisplay");
-const input = document.querySelector("input");
-console.log(colordisplay.style);
+const colorinput = document.querySelector("input");
 
 window.addEventListener("DOMContentLoaded", init());
 
+//Adds eventlistener to input, calls showColor
 function init() {
-    input.addEventListener("input", updateColor, false);
+    colorinput.addEventListener("input", showColor, false);
 }
 
-function updateColor(event) {
-    colordisplay.style.background = input.value;
-    // console.log(colordisplay.style.background);
-
-    showHex(input.value);
-    showRgb(input.value);
-    
+//Sets background-color on colordisplay to current inputcolor, calls showValues
+function showColor() {
+  colordisplay.style.background = colorinput.value;
+  
+  showValues();
 }
 
-function showHex(input) {
-    console.log(input);
-    let hex = document.querySelector(".hex");
-    hex.textContent = `HEX: ${input}`;
+//Places various color-values in HTML, calls getRgb and getHsl
+function showValues() {
+  let hexValue = colorinput.value;
+  const rgbValue = getRgb(hexValue);
+  const hslValue = getHsl(rgbValue[0], rgbValue[1], rgbValue[2]);
+  
+  let hsl = document.querySelector(".hsl");
+  let hex = document.querySelector(".hex");
+  let rgb = document.querySelector(".rgb");
+  
+  hex.textContent = `HEX: ${hexValue}`;
+  rgb.textContent = `RGB: ${rgbValue[0]}, ${rgbValue[1]}, ${rgbValue[2]}`;
+  hsl.textContent = `HSL: ${hslValue[0].toFixed(0)}, ${hslValue[1].toFixed(0)}%, ${hslValue[2].toFixed(0)}%`;
 
+  getRgb(hexValue);
+  getHsl(rgbValue[0], rgbValue[1], rgbValue[2]);
 }
 
-function showRgb(input) {
-    let rgb = document.querySelector(".rgb");
-
+//Removes the # from hex colorcode, splits it into an array, isolates the 
+//rgb - values and turns them into numbers.Returns the array to showValues
+function getRgb(input) {
     const rgbCleaned = input.replace("#", "");
     let hexString = rgbCleaned.match(/.{1,2}/g);  
-
     
     const r = parseInt(hexString[0], 16)
     const g = parseInt(hexString[1], 16)
     const b = parseInt(hexString[2], 16)
-    
 
-    rgb.textContent = `RGB: ${r}, ${g}, ${b}`;
-
-    showHsl(r, g, b);
+  return [r, g, b];
 }
 
-function showHsl(red, green, blue) {
-    let hsl = document.querySelector(".hsl");
+//Calculates hsl values from the rgb-values, and returns them to showValues as an array
+function getHsl(red, green, blue) {
     const r = red/255;
     const g = green/255;
     const b = blue/255;
@@ -79,7 +85,6 @@ function showHsl(red, green, blue) {
     s *= 100;
     l *= 100;
     
-    hsl.textContent = `HSL: ${h.toFixed(0)}, ${s.toFixed(0)}%, ${l.toFixed(0)}%`;
-  
-    
+  return [h, s, l];
 }
+
